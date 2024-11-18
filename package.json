@@ -1,0 +1,16 @@
+{
+  "name": "blob-document-intelligence-cosmos",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "@azure/identity": "^4.5.0",
+    "@azure/storage-blob": "^12.25.0",
+    "dotenv": "^16.4.5"
+  },
+  "main": "src/{index.js,functions/*.js}"
+}
