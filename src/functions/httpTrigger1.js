@@ -18,11 +18,10 @@ const {
 const defaultAzureCredential = getCredentials();
 const azureADTokenProvider = getAzureOpenAiTokenProvider();
 
-require("dotenv").config(); // ローカル実行時の .env ファイル読み込み用
 const blobStorageAccountName = process.env.AZURE_STORAGE_ACCOUNT_NAME;
 const blobContainerName = process.env.AZURE_STORAGE_CONTAINER_NAME;
 const documentIntelligenceEndpoint = process.env.DOCUMENT_INTELLIGENCE_ENDPOINT;
-const cosmosDbEndpoint = process.env.COSMOS_DB_ENDPOINT;
+const cosmosDbEndpoint = process.env.AZURE_COSMOSDB_NOSQL_ENDPOINT;
 const cosmosDbDatabaseName = process.env.COSMOS_DATABASE_NAME;
 const cosmosDbContainerName = process.env.COSMOS_CONTAINER_NAME;
 const azureOpenAiEndpoint = process.env.AZURE_OPENAI_API_ENDPOINT;
@@ -72,13 +71,14 @@ app.http("httpTrigger1", {
             };
         }
 
-        const response = await cosmosContainer.items.readAll().fetchAll();
-        const cosmosDbItems = response.resources;
+        const blobResponse = await cosmosContainer.items.readAll().fetchAll();
+        const cosmosDbItems = blobResponse.resources;
 
         // Blob の ファイル一覧を取得
         for await (const blob of containerClient.listBlobsFlat()) {
             // blob.nameg が cosmosDbItems[index].metadata.source に含まれている場合はスキップ
             if (
+                Array.isArray(cosmosDbItems) &&
                 cosmosDbItems.some((item) => item.metadata.source === blob.name)
             ) {
                 context.log(`Skip: ${blob.name}`);
@@ -146,6 +146,6 @@ app.http("httpTrigger1", {
             context.log(response);
         }
 
-        return { body: "hello world" };
+        return { body: "OK" };
     },
 });
