@@ -8,11 +8,6 @@ cd <repo name>
 npm install
 ```
 
-## `.env` ファイルの準備
-
-1. `.env.sample` ファイルをコピーし、`.env` ファイルを作成します。
-2. `.env` ファイルに必要な情報を記入します。
-
 ## `local.settings.json` ファイルの準備
 
 `local.settings.json` の `Value` オブジェクトの中に以下のように記述
@@ -22,7 +17,18 @@ npm install
     ・・・その他設定
     "Values": {
         "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "FUNCTIONS_WORKER_RUNTIME": "node"
+        "FUNCTIONS_WORKER_RUNTIME": "node",
+        // 以下の値は Azure リソースの値を確認し設定
+        "AZURE_STORAGE_ACCOUNT_NAME": "",
+        "AZURE_STORAGE_CONTAINER_NAME": "",
+        "DOCUMENT_INTELLIGENCE_ENDPOINT": "",
+        "AZURE_COSMOSDB_NOSQL_ENDPOINT": "",
+        "COSMOS_DATABASE_NAME": "",
+        "COSMOS_CONTAINER_NAME": "",
+        "AZURE_OPENAI_API_ENDPOINT": "",
+        "AZURE_OPENAI_API_INSTANCE_NAME": "",
+        "AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME": "",
+        "AZURE_OPENAI_API_VERSION": ""
     }
 }
 ```
