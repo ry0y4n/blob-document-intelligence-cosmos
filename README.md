@@ -48,3 +48,30 @@ azurite --silent --location ./azurite --debug ./azurite/debug.log
 ```
 npm run start
 ```
+
+# デプロイ後の環境変数の設定
+
+以下のコマンドでデプロイ後の環境変数を設定します。
+
+```PowerShell
+# 定義する環境変数をハッシュテーブルに格納
+$appSettings = @{
+    "AZURE_STORAGE_ACCOUNT_NAME" = "";
+    "AZURE_STORAGE_CONTAINER_NAME" = "";
+    "DOCUMENT_INTELLIGENCE_ENDPOINT" = "";
+    "AZURE_COSMOSDB_NOSQL_ENDPOINT" = "";
+    "COSMOS_DATABASE_NAME" = "";
+    "COSMOS_CONTAINER_NAME" = "";
+    "AZURE_OPENAI_API_ENDPOINT" = "";
+    "AZURE_OPENAI_API_INSTANCE_NAME" = "";
+    "AZURE_OPENAI_API_EMBEDDINGS_DEPLOYMENT_NAME" = "";
+    "AZURE_OPENAI_API_VERSION" = "";
+}
+
+# 関数アプリの名前とリソース グループ名
+$functionAppName = "MyFunctionApp"
+$resourceGroupName = "MyResourceGroup"
+
+# 環境変数を更新
+Update-AzFunctionAppSetting -Name $functionAppName -ResourceGroupName $resourceGroupName -AppSetting $appSettings
+```
